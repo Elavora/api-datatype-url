@@ -1,47 +1,30 @@
 # Guia de uso
 
-DataType de URL para aplicacoes Elavora API.
-
-## Instalacao
-
-```bash
-composer require elavora/api-datatype-url
-```
-
-## Quando usar
-
-- Validar e normalizar valores antes de chegar na regra de negocio.
-- Evitar passar strings soltas entre services, DTOs e persistencia.
-- Reutilizar a mesma validacao em controllers, comandos e testes.
-
-## Exemplo rapido
+`Url` valida strings com o filtro de URL nativo do PHP.
 
 ```php
 use Elavora\Api\DataTypes\Url;
 
-$valor = new Url('https://example.com');
-$normalizado = $valor->value();
+$url = Url::from('https://example.com/docs');
+
+echo $url->value(); // https://example.com/docs
 ```
 
-## Principais pontos de entrada
+O pacote preserva a string recebida. Ele nao remove espacos, restringe o esquema ou altera componentes da URL.
 
-- `Elavora\Api\DataTypes\Url`
+Para verificar uma entrada sem criar uma instancia:
 
-## Dependencias de runtime
+```php
+if (Url::isValid($entrada)) {
+    $url = Url::from($entrada);
+}
+```
 
-- `elavora/api-datatype-core` `^0.1`
+## Validacao do pacote
 
-## Validacao no projeto consumidor
-
-Depois de instalar o pacote, rode os testes da aplicacao consumidora. Para uma verificacao isolada do pacote, use container:
+Execute os comandos a partir da raiz do clone:
 
 ```bash
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-url" composer:2 composer validate --strict --no-check-publish
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-url" composer:2 sh -lc "find . \\( -path ./.git -o -path ./vendor \\) -prune -o -name '*.php' -print0 | xargs -0 -r -n1 php -l"
+docker run --rm -v "${PWD}:/workspace" -w /workspace composer:2 composer update --no-interaction --no-progress --prefer-dist
+docker run --rm -v "${PWD}:/workspace" -w /workspace composer:2 composer check
 ```
-
-## Observacoes
-
-- Mantenha regras de produto fora deste pacote.
-- Prefira configurar extensoes no bootstrap da aplicacao.
-- Instale apenas os modulos que a aplicacao realmente usa.

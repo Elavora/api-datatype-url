@@ -1,5 +1,7 @@
 # Guia de uso
 
+[README](../README.md) · Veja também: [Desenvolvimento e testes](DESENVOLVIMENTO.md) · [Automação do repositório](AUTOMACAO.md)
+
 DataType de URL para aplicacoes Elavora API.
 
 ## Instalacao
@@ -29,16 +31,18 @@ $normalizado = $valor->value();
 
 ## Dependencias de runtime
 
-- `elavora/api-datatype-core` `^0.1`
+- PHP 8.3 ou superior
+- `elavora/api-datatype-core` `^2.0` (que exige o `elavora/api-framework` `^2.0`)
 
-## Validacao no projeto consumidor
+## Mudanca na versao 1.0.0
 
-Depois de instalar o pacote, rode os testes da aplicacao consumidora. Para uma verificacao isolada do pacote, use container:
+O pacote passa a exigir PHP 8.3 e o `elavora/api-datatype-core` `^2.0` (antes: PHP 8.1 e core `^0.1`). A API publica
+nao muda: `Url` continua estendendo `AbstractDataType`, com os mesmos metodos e as mesmas regras de validacao.
 
-```bash
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-url" composer:2 composer validate --strict --no-check-publish
-docker run --rm -v "${PWD}:/workspace" -w "/workspace/api-datatype-url" composer:2 sh -lc "find . \\( -path ./.git -o -path ./vendor \\) -prune -o -name '*.php' -print0 | xargs -0 -r -n1 php -l"
-```
+## Validacao do pacote
+
+Depois de instalar o pacote, rode os testes da aplicacao consumidora. Para validar o proprio pacote (testes, lint, PHPStan
+e o mesmo fluxo do CI), veja [Desenvolvimento e testes](DESENVOLVIMENTO.md). Versoes e release: [Automacao](AUTOMACAO.md#versões-e-release).
 
 ## Observacoes
 

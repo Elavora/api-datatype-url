@@ -71,8 +71,11 @@ Em cada PR e em cada push na `main`:
 
 ## Commits, PRs e versões
 
-Commits em português do Brasil, no padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `ci:`). Um assunto por commit
-e por PR. A descrição do PR segue o template da organização.
+Commits em português do Brasil, no padrão Conventional Commits (`feat:`, `fix:`, `docs:`, `ci:`). Um assunto por commit.
+A descrição do PR segue o template da organização.
+
+Neste repositório, um único PR faz o upgrade para o `elavora/api-datatype-core` `^2.0` (PHP 8.3) e adota o pipeline,
+em commits separados por assunto. Ele leva as labels `upgrade` e `release` e gera a versão `1.0.0`.
 
 As labels do PR definem a versão que sai no merge, e a label `release` publica a estável. Veja
 [Versões e release](AUTOMACAO.md#versões-e-release).

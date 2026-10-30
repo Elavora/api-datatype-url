@@ -412,13 +412,14 @@ Conteúdo exato:
 ### `composer.json`
 
 O arquivo é formatado com **2 espaços** de indentação (regra do `.editorconfig` para `*.json`), sem espaços duplos
-depois de `:` e sem sequências `\uXXXX` (por exemplo, `">=8.1"`, e não `"\u003e=8.1"`). Depois do PR, ele tem:
+depois de `:` e sem sequências `\uXXXX` (por exemplo, `">=8.3"`, e não `"\u003e=8.3"`). Depois do PR, ele tem:
 
 ```json
 {
   "name": "elavora/<repo>",
   "require": {
-    "php": ">=8.1"
+    "php": ">=8.3",
+    "elavora/api-datatype-core": "^2.0"
   },
   "require-dev": {
     "elavora/code-standards": "^1.1",
@@ -445,6 +446,11 @@ depois de `:` e sem sequências `\uXXXX` (por exemplo, `">=8.1"`, e não `"\u003
 
 O exemplo mostra só as chaves que esta adoção cria ou muda. As demais (`description`, `type`, `license`, as outras
 dependências de `require`, `autoload`, `extra.branch-alias`) continuam como estão, na ordem atual.
+
+- Este PR também é o upgrade para o `elavora/api-datatype-core` 2.0: `php` sobe de `>=8.1` para `>=8.3` e
+  `elavora/api-datatype-core` sobe de `^0.1` para `^2.0`. O core 2 exige o `elavora/api-framework` `^2.0`, que também
+  exige PHP 8.3. O `src/` não muda: `Url` continua estendendo `AbstractDataType`, com a mesma API pública. Em
+  `extra.branch-alias`, `dev-main` passa de `0.1-dev` para `1.0-dev`, a série da versão que este PR gera.
 
 - `elavora/code-standards` fica em `require-dev`, nunca em `require`. A restrição é `^1.` seguido do minor (1 ou
   maior) e, opcionalmente, do patch. O minor mínimo é 1 porque o subcomando `lint` só existe a partir da 1.1.0, e o CI
@@ -826,7 +832,7 @@ As regras completas estão no `Elavora/.github`: [versionamento](https://github.
 
 | Label no PR | Efeito |
 | --- | --- |
-| `upgrade` | major (`1.0.0` para `2.0.0`) |
+| `upgrade` | major (`0.2.0` para `1.0.0`) |
 | `feature`, `enhancement` ou `improvement` | minor (`1.0.0` para `1.1.0`) |
 | `bug`, `documentation`, `tests`, `refactor`, `dependencies`, outra ou nenhuma | patch (`1.0.0` para `1.0.1`) |
 | `release`, junto com as outras | publica a estável em vez da beta |
@@ -837,9 +843,11 @@ As regras completas estão no `Elavora/.github`: [versionamento](https://github.
   maior número existente. O workflow nunca apaga nem move tag.
 - Só o último PR de uma série de mudanças leva `release`.
 
-**Neste repositório:** a última tag é a legada `v0.2.0`, que conta como a estável `0.2.0`. O PR de adoção do pipeline
-não leva `release` nem label de versão, então o merge gera `0.2.1-beta.1`. O `release.yml` novo roda no merge desse
-mesmo PR, e o `tag_on_merge.yml` antigo já não existe nele, então sai uma release só.
+**Neste repositório:** a última tag é a legada `v0.2.0`, que conta como a estável `0.2.0` (as outras são `v0.1.0` e
+`v0.1.1`). Um único PR faz o upgrade para o `elavora/api-datatype-core` `^2.0` (PHP 8.3) e
+adota o pipeline. Ele é o último PR da série e leva as labels `upgrade` (major) e `release` (estável), então o merge
+gera a estável `1.0.0`. O `release.yml` novo roda no merge desse mesmo PR, e o `tag_on_merge.yml` antigo já não
+existe nele, então sai uma release só.
 
 O Packagist é avisado pelo `release.yml` a cada release, com o secret `PACKAGIST_WEBHOOK_URL`. O pacote só fica
 disponível na versão nova depois dessa notificação.

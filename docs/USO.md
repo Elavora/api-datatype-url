@@ -31,7 +31,13 @@ $normalizado = $valor->value();
 
 ## Dependencias de runtime
 
-- `elavora/api-datatype-core` `^0.1`
+- PHP 8.3 ou superior
+- `elavora/api-datatype-core` `^2.0` (que exige o `elavora/api-framework` `^2.0`)
+
+## Mudanca na versao 1.0.0
+
+O pacote passa a exigir PHP 8.3 e o `elavora/api-datatype-core` `^2.0` (antes: PHP 8.1 e core `^0.1`). A API publica
+nao muda: `Url` continua estendendo `AbstractDataType`, com os mesmos metodos e as mesmas regras de validacao.
 
 ## Validacao do pacote
 

@@ -23,7 +23,7 @@ Especificação, exemplos e dependências: [docs/USO.md](docs/USO.md).
 composer require elavora/api-datatype-url
 ```
 
-Requisitos: PHP 8.3 ou superior e `elavora/api-datatype-core` `^2.0` (que usa o `elavora/api-framework` `^2.0`).
+Requisitos: PHP 8.3 ou superior e `elavora/api-datatype-core` `^3.0` (que usa o `elavora/api-framework` `^3.0`).
 
 ## Desenvolvimento e testes
 

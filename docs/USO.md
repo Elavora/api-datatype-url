@@ -25,6 +25,18 @@ $valor = new Url('https://example.com');
 $normalizado = $valor->value();
 ```
 
+## Documentacao do tipo (OPTIONS)
+
+`Url` implementa `Elavora\Api\Framework\Contracts\DescribesType`. O OPTIONS publico da API usa
+`documentedType()` para documentar o campo sem expor o nome da classe PHP. O tipo declara:
+
+- `type`: `string`
+- `format`: `url`
+- `description`: URL absoluta valida, com esquema
+- `example`: `https://example.com/docs`
+
+Quem valida continua sendo `isValid()`.
+
 ## Principais pontos de entrada
 
 - `Elavora\Api\DataTypes\Url`
